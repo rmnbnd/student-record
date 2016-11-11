@@ -5,15 +5,14 @@
         .module('applicationApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Auth', 'Principal', 'LoginService', '$state'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService'];
 
-    function HomeController($scope, Auth, Principal, LoginService, $state) {
+    function HomeController($scope, Principal, LoginService) {
         var vm = this;
 
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
-        vm.logout = logout;
 
         $scope.$on('authenticationSuccess', function () {
             getAccount();
@@ -26,11 +25,6 @@
                 vm.account = account;
                 vm.isAuthenticated = Principal.isAuthenticated;
             });
-        }
-
-        function logout() {
-            Auth.logout();
-            $state.go('home');
         }
 
     }
