@@ -17,28 +17,16 @@
             <form class="form" role="form" ng-submit="vm.login($event)">
                 <div class="form-group">
                     <label for="username">Login</label>
-                    <input type="text" class="form-control" id="username" placeholder="Your username" ng-model="vm.username">
+                    <input type="text" class="form-control" id="username" placeholder="Your username"
+                           ng-model="vm.username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Your password"
                            ng-model="vm.password">
                 </div>
-                <div class="form-group">
-                    <label for="rememberMe">
-                        <input type="checkbox" id="rememberMe" ng-model="vm.rememberMe" checked>
-                        <span>Remember me</span>
-                    </label>
-                </div>
                 <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
-            <p></p>
-            <div class="alert alert-warning">
-                <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Did you forget your password?</a>
-            </div>
-            <div class="alert alert-warning">
-                You don't have an account yet? <a class="alert-link" href="" ng-click="vm.register()">Register a new account</a>
-            </div>
         </div>
     </div>
 </div>
