@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -27,12 +27,12 @@
         vm.transition = transition;
 
         vm.loadAll();
-        
-        Principal.identity().then(function(account) {
+
+        Principal.identity().then(function (account) {
             vm.currentAccount = account;
         });
 
-        function setActive (user, isActivated) {
+        function setActive(user, isActivated) {
             user.activated = isActivated;
             User.update(user, function () {
                 vm.loadAll();
@@ -40,16 +40,11 @@
             });
         }
 
-        function loadAll () {
-            User.query({
-                page: pagingParams.page - 1,
-                size: vm.itemsPerPage,
-                sort: sort()
-            }, onSuccess, onError);
+        function loadAll() {
+            User.query(onSuccess, onError);
         }
 
-        function onSuccess(data, headers) {
-            //hide anonymous user from user management: it's a required user for Spring Security
+        function onSuccess(data) {
             var hiddenUsersSize = 0;
             for (var i in data) {
                 if (data[i]['login'] === 'anonymoususer') {
@@ -57,10 +52,6 @@
                     hiddenUsersSize++;
                 }
             }
-            vm.links = ParseLinks.parse(headers('link'));
-            vm.totalItems = headers('X-Total-Count') - hiddenUsersSize;
-            vm.queryCount = vm.totalItems;
-            vm.page = pagingParams.page;
             vm.users = data;
         }
 
@@ -68,7 +59,7 @@
             AlertService.error(error.data.message);
         }
 
-        function clear () {
+        function clear() {
             vm.user = {
                 id: null, login: null, firstName: null, lastName: null, email: null,
                 activated: null, langKey: null, createdBy: null, createdDate: null,
@@ -77,7 +68,7 @@
             };
         }
 
-        function sort () {
+        function sort() {
             var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
             if (vm.predicate !== 'id') {
                 result.push('id');
@@ -85,12 +76,12 @@
             return result;
         }
 
-        function loadPage (page) {
+        function loadPage(page) {
             vm.page = page;
             vm.transition();
         }
 
-        function transition () {
+        function transition() {
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
