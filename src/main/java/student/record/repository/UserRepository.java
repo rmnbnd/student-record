@@ -1,6 +1,5 @@
 package student.record.repository;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import student.record.model.User;
 
@@ -11,7 +10,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findOneByLogin(String login);
 
-    @Query(value = "select distinct user from User user left join fetch user.authorities")
-    List<User> findAllWithAuthorities();
+    List<User> findByAuthorities_Name(String name);
 
 }
