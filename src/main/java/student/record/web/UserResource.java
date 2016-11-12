@@ -5,16 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import student.record.model.Authority;
 import student.record.model.User;
 import student.record.repository.UserRepository;
 import student.record.web.rest.vm.ManagedUserVM;
 
 import javax.inject.Inject;
 import java.net.URISyntaxException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,13 +22,9 @@ public class UserResource {
     private UserRepository userRepository;
 
     @GetMapping("/users")
-    public ResponseEntity<List<ManagedUserVM>> getAllUsers()
+    public ResponseEntity<List<ManagedUserVM>> getAllStudents()
             throws URISyntaxException {
-        Set<Authority> authorities = new HashSet<>();
-        Authority authority = new Authority();
-        authority.setName("ROLE_USER");
-        authorities.add(authority);
-        List<User> users = userRepository.findByAuthorities_Name("ROLE_USER");
+        List<User> users = userRepository.findUserByRole("ROLE_USER");
         List<ManagedUserVM> managedUserVMs = users.stream()
                 .map(ManagedUserVM::new)
                 .collect(Collectors.toList());
