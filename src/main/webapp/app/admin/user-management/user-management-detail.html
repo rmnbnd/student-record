@@ -5,10 +5,10 @@
         <dd><span>{{vm.student.login}}</span></dd>
         <dt><span>Name</span></dt>
         <dd>{{vm.student.name}}</dd>
-        <dt><span>Profiles</span></dt>
+        <dt><span>Links</span></dt>
         <dd>
             <ul class="list-unstyled">
-                <li ng-repeat="authority in vm.student.authorities"><span>{{authority}}</span></li>
+                <li ng-repeat="link in vm.student.links"><span>{{link}}</span></li>
             </ul>
         </dd>
     </dl>

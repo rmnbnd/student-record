@@ -14,7 +14,7 @@
         vm.clear = clear;
         vm.languages = null;
         vm.save = save;
-        vm.user = entity;
+        vm.student = entity;
 
 
 
