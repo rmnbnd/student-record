@@ -1,19 +1,18 @@
 package student.record.web.rest.vm;
 
-import student.record.model.User;
+import student.record.model.Student;
 import student.record.service.dto.UserDTO;
-
 
 public class ManagedUserVM extends UserDTO {
 
     private Long id;
 
-    public ManagedUserVM() {
-    }
+    private String name;
 
-    public ManagedUserVM(User user) {
-        super(user);
-        this.id = user.getId();
+    public ManagedUserVM(Student student) {
+        super(student.getUser());
+        this.id = student.getId();
+        this.name = student.getName();
     }
 
     public Long getId() {
@@ -22,6 +21,14 @@ public class ManagedUserVM extends UserDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
