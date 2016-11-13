@@ -8,7 +8,9 @@
         <dt><span>Links</span></dt>
         <dd>
             <ul class="list-unstyled">
-                <li ng-repeat="link in vm.student.links"><span>{{link}}</span></li>
+                <div class="video" ng-repeat="link in vm.student.links">
+                    <iframe width="200" height="200" ng-src={{vm.trustSrc(link.url)}} frameborder="0"></iframe>
+                </div>
             </ul>
         </dd>
     </dl>
