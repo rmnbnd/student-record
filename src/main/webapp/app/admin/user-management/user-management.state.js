@@ -65,20 +65,15 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/admin/user-management/user-management-dialog.html',
-                    controller: 'UserManagementDialogController',
+                    templateUrl: 'app/admin/user-management/user-management-link-dialog.html',
+                    controller: 'UserManagementLinkDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
-                            return {
-                                id: null, login: null, firstName: null, lastName: null, email: null,
-                                activated: true, langKey: null, createdBy: null, createdDate: null,
-                                lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
-                                resetKey: null, authorities: null
-                            };
-                        }
+                        entity: ['User', function(User) {
+                            return User.get({login : $stateParams.login});
+                        }]
                     }
                 }).result.then(function() {
                     $state.go('user-management', null, { reload: true });

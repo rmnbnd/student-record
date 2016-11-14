@@ -19,10 +19,37 @@
             <input type="text" class="form-control" name="name" ng-model="vm.student.name" readonly>
         </div>
         <div class="form-group">
-            <label>Profiles</label>
-            <select class="form-control" multiple name="authority" ng-model="vm.user.authorities"
-                    ng-options="authority for authority in vm.authorities">
-            </select>
+            <label>Links</label>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <span>URL</span>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="link in vm.student.links">
+                        <td>
+                            <a>{{link.url}}</a>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>
+                                    <span class="hidden-xs hidden-sm"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary" ui-sref="user-management.new">
+                <span class="glyphicon glyphicon-flash"></span> <span>Add a new link</span>
+            </button>
         </div>
     </div>
     <div class="modal-footer">
