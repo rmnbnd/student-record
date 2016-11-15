@@ -5,14 +5,18 @@
         .module('applicationApp')
         .controller('UserManagementLinkDialogController', UserManagementLinkDialogController);
 
-    UserManagementLinkDialogController.$inject = ['$uibModalInstance', 'entity', 'User'];
+    UserManagementLinkDialogController.$inject = ['$uibModalInstance', 'entity', 'User', 'Youtube', '$window'];
 
-    function UserManagementLinkDialogController($uibModalInstance, entity, User) {
+    function UserManagementLinkDialogController($uibModalInstance, entity, User, Youtube, $window) {
         var vm = this;
 
         vm.clear = clear;
         vm.save = save;
         vm.student = entity;
+
+        Youtube.get(function (data) {
+            $window.open(data.url, '_blank');
+        });
 
         function clear() {
             $uibModalInstance.dismiss('cancel');
