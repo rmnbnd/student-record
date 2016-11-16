@@ -3,13 +3,14 @@
 
     angular
         .module('applicationApp')
+        .factory('YoutubeAuthorize', YoutubeAuthorize)
         .factory('Youtube', Youtube);
 
     Youtube.$inject = ['$resource'];
+    YoutubeAuthorize.$inject = ['$resource'];
 
-    function Youtube($resource) {
+    function YoutubeAuthorize($resource) {
         var service = $resource('api/youtube/google-authorize', {}, {
-            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
@@ -21,5 +22,14 @@
         });
 
         return service;
+    }
+
+    function Youtube($resource) {
+        return $resource('api/youtube/uploads', {}, {
+            'query': {
+                method: 'GET',
+                isArray: true
+            }
+        });
     }
 })();

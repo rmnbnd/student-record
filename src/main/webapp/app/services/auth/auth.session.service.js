@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('applicationApp')
         .factory('AuthServerProvider', AuthServerProvider);
 
-    AuthServerProvider.$inject = ['$http', '$localStorage' ];
+    AuthServerProvider.$inject = ['$http', '$localStorage', '$window', 'YoutubeAuthorize'];
 
-    function AuthServerProvider ($http, $localStorage ) {
+    function AuthServerProvider($http, $localStorage, $window, YoutubeAuthorize) {
         var service = {
             getToken: getToken,
             hasValidToken: hasValidToken,
@@ -17,17 +17,17 @@
 
         return service;
 
-        function getToken () {
+        function getToken() {
             var token = $localStorage.authenticationToken;
             return token;
         }
 
-        function hasValidToken () {
+        function hasValidToken() {
             var token = this.getToken();
             return !!token;
         }
 
-        function login (credentials) {
+        function login(credentials) {
             var data = 'j_username=' + encodeURIComponent(credentials.username) +
                 '&j_password=' + encodeURIComponent(credentials.password) +
                 '&remember-me=' + credentials.rememberMe + '&submit=Login';
@@ -37,13 +37,16 @@
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).success(function (response) {
+                YoutubeAuthorize.get(function (data) {
+                    $window.open(data.url);
+                });
                 return response;
             });
         }
 
-        function logout () {
+        function logout() {
 
-            
+
             // logout from the server
             $http.post('api/logout').success(function (response) {
                 delete $localStorage.authenticationToken;
@@ -51,7 +54,7 @@
                 $http.get('api/account');
                 return response;
             });
-            
+
         }
     }
 })();

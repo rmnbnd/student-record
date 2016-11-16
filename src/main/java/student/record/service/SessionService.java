@@ -19,4 +19,8 @@ public class SessionService {
         httpSession.setAttribute(SESSION_GOOGLE_AUTHORIZE_CODE, code);
     }
 
+    public String getGoogleAuthorizeCode() {
+        return (String) httpSession.getAttribute(SESSION_GOOGLE_AUTHORIZE_CODE);
+    }
+
 }

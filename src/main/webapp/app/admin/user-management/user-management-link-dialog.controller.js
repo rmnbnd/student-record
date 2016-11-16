@@ -14,9 +14,7 @@
         vm.save = save;
         vm.student = entity;
 
-        Youtube.get(function (data) {
-            $window.open(data.url, '_blank');
-        });
+        Youtube.query();
 
         function clear() {
             $uibModalInstance.dismiss('cancel');
