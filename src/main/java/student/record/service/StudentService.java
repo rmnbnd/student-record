@@ -21,16 +21,15 @@ public class StudentService {
         return (List<Student>) studentRepository.findAll();
     }
 
-    public Optional<Student> findByLogin(String login) {
+    public Student findByLogin(String login) {
         return studentRepository.findOneByUserLogin(login);
     }
 
     public void removeLink(String login, Long linkId) {
-        Optional<Student> studentOptional = studentRepository.findOneByUserLogin(login);
-        if (!studentOptional.isPresent()) {
+        Student student = studentRepository.findOneByUserLogin(login);
+        if (student == null) {
             return;
         }
-        Student student = studentOptional.get();
         student.setLinks(student.getLinks().stream()
                 .filter(link -> !link.getId().equals(linkId))
                 .collect(Collectors.toList())
@@ -38,4 +37,7 @@ public class StudentService {
         studentRepository.save(student);
     }
 
+    public void updateStudent(Student student) {
+        studentRepository.save(student);
+    }
 }

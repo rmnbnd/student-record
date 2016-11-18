@@ -9,7 +9,6 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.youtube.model.PlaylistItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,24 +19,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import student.record.service.SessionService;
 import student.record.service.YoutubeMyUploads;
+import student.record.web.rest.YoutubeVideo;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
 public class YoutubeResource {
 
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
     @Autowired
     private SessionService sessionService;
-
-    GoogleAuthorizationCodeFlow flow;
-
-    private static HttpTransport httpTransport;
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    GoogleClientSecrets clientSecrets;
+    private GoogleAuthorizationCodeFlow flow;
 
     @RequestMapping(value = "youtube/google-authorize", method = RequestMethod.GET)
     public ResponseEntity<String> googleAuthorize() throws Exception {
@@ -45,19 +43,21 @@ public class YoutubeResource {
     }
 
     @RequestMapping(value = "youtube/save-authorize-code", method = RequestMethod.GET, params = "code")
-    public String oauth2Callback(@RequestParam(value = "code") String code) {
+    public String oauth2Callback(@RequestParam(value = "code") String code) throws IOException {
         sessionService.addGoogleAuthorizeCode(code);
+        TokenResponse response = flow.newTokenRequest(sessionService.getGoogleAuthorizeCode())
+                .setRedirectUri("http://localhost:8080/api/youtube/save-authorize-code").execute();
+        Credential credential = flow.createAndStoreCredential(response, "userID");
+        sessionService.addYoutubeUploads(YoutubeMyUploads.getYoutubeUploads(credential).stream()
+                .map(YoutubeVideo::from)
+                .collect(Collectors.toList()));
         return "Thank you. You can close this page.";
     }
 
     @GetMapping("youtube/uploads")
-    public ResponseEntity<List<PlaylistItem>> getYoutubeUploads()
+    public ResponseEntity<List<YoutubeVideo>> getYoutubeUploads()
             throws URISyntaxException, IOException {
-        TokenResponse response = flow.newTokenRequest(sessionService.getGoogleAuthorizeCode())
-                .setRedirectUri("http://localhost:8080/api/youtube/save-authorize-code").execute();
-        Credential credential = flow.createAndStoreCredential(response, "userID");
-        List<PlaylistItem> youtubeUploads = YoutubeMyUploads.getYoutubeUploads(credential);
-        return new ResponseEntity<>(youtubeUploads, HttpStatus.OK);
+        return new ResponseEntity<>(sessionService.getYoutubeUploads(), HttpStatus.OK);
     }
 
     private String authorize() throws Exception {
@@ -66,8 +66,8 @@ public class YoutubeResource {
             GoogleClientSecrets.Details web = new GoogleClientSecrets.Details();
             web.setClientId("");
             web.setClientSecret("");
-            clientSecrets = new GoogleClientSecrets().setWeb(web);
-            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+            GoogleClientSecrets clientSecrets = new GoogleClientSecrets().setWeb(web);
+            HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
             flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets,
                     Collections.singleton("https://www.googleapis.com/auth/youtube.readonly")).build();
         }

@@ -60,7 +60,7 @@
             })
             .state('user-management.new', {
                 parent: 'user-management',
-                url: '/new',
+                url: '/{login}/new-link',
                 data: {
                     authorities: ['ROLE_ADMIN']
                 },

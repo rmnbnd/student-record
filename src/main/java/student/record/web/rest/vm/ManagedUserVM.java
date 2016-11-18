@@ -1,10 +1,11 @@
 package student.record.web.rest.vm;
 
-import student.record.model.Link;
 import student.record.model.Student;
+import student.record.service.dto.LinkDTO;
 import student.record.service.dto.UserDTO;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ManagedUserVM extends UserDTO {
 
@@ -12,13 +13,19 @@ public class ManagedUserVM extends UserDTO {
 
     private String name;
 
-    private List<Link> links;
+    private List<LinkDTO> links;
 
     public ManagedUserVM(Student student) {
         super(student.getUser());
         this.id = student.getId();
         this.name = student.getName();
-        this.links = student.getLinks();
+        if (student.getLinks() != null) {
+            this.links = student.getLinks().stream().map(link -> {
+                LinkDTO linkDTO = new LinkDTO();
+                linkDTO.setUrl(link.getUrl());
+                return linkDTO;
+            }).collect(Collectors.toList());
+        }
     }
 
     public Long getId() {
@@ -37,11 +44,11 @@ public class ManagedUserVM extends UserDTO {
         this.name = name;
     }
 
-    public List<Link> getLinks() {
+    public List<LinkDTO> getLinks() {
         return links;
     }
 
-    public void setLinks(List<Link> links) {
+    public void setLinks(List<LinkDTO> links) {
         this.links = links;
     }
 

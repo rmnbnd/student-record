@@ -51,7 +51,9 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-primary" ui-sref="user-management.new">
+            <button class="btn btn-primary" ui-sref="user-management.new({
+                                    login:vm.student.login
+                                })">
                 <span class="glyphicon glyphicon-flash"></span> <span>Add a new link</span>
             </button>
         </div>
