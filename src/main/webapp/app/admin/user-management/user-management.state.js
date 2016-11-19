@@ -77,6 +77,7 @@
                             }]
                         }
                     }).result.then(function () {
+                        $uibModalStack.dismissAll();
                         $state.go('user-management', null, {reload: true});
                     }, function () {
                         $state.go('user-management');

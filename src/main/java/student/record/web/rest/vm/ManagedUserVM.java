@@ -15,6 +15,9 @@ public class ManagedUserVM extends UserDTO {
 
     private List<LinkDTO> links;
 
+    public ManagedUserVM() {
+    }
+
     public ManagedUserVM(Student student) {
         super(student.getUser());
         this.id = student.getId();

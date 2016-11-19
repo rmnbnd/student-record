@@ -28,7 +28,7 @@ public class Student {
     private User user;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_link",
             joinColumns = {@JoinColumn(name = "id", referencedColumnName = "id")},
