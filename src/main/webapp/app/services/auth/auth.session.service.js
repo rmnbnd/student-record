@@ -38,7 +38,9 @@
                 }
             }).success(function (response) {
                 YoutubeAuthorize.get(function (data) {
-                    $window.open(data.url);
+                    if (data.url) {
+                        $window.open(data.url);
+                    }
                 });
                 return response;
             });
