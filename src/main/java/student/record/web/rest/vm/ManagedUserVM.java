@@ -25,6 +25,8 @@ public class ManagedUserVM extends UserDTO {
         if (student.getLinks() != null) {
             this.links = student.getLinks().stream().map(link -> {
                 LinkDTO linkDTO = new LinkDTO();
+                linkDTO.setId(link.getId());
+                linkDTO.setTitle(link.getTitle());
                 linkDTO.setUrl(link.getUrl());
                 return linkDTO;
             }).collect(Collectors.toList());

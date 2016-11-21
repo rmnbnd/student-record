@@ -16,6 +16,9 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
+    private String title;
+
     @Column(name = "url")
     private String url;
 
@@ -35,4 +38,11 @@ public class Link {
         this.url = url;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h2>Links for [<b>{{vm.settingsAccount.login}}</b>]</h2>
+            <h2>Links for [<b>{{vm.student.login}}</b>]</h2>
 
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -16,7 +16,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="link in vm.links track by link.videoId">
+                    <tr ng-repeat="link in vm.student.links track by link.id">
                         <td>{{link.title}}</td>
                         <td>{{link.url}}</td>
                     </tr>

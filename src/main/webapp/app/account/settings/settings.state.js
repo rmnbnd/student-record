@@ -8,12 +8,12 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('settings', {
+        $stateProvider.state('links', {
             parent: 'account',
-            url: '/settings',
+            url: '/links',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Settings'
+                pageTitle: 'Links'
             },
             views: {
                 'content@': {
