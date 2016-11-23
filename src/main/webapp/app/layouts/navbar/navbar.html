@@ -24,7 +24,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li ui-sref-active="active" ng-switch-when="true">
+                        <li ui-sref-active="active" ng-show="!vm.hasAnyAuthority(['ROLE_ADMIN'])" ng-switch-when="true">
                             <a ui-sref="links" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-wrench"></span>&nbsp;
                                 <span>Links</span>
