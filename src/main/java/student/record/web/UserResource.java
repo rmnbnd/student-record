@@ -52,6 +52,7 @@ public class UserResource {
         if (managedUserVM.getLinks() != null) {
             student.setLinks(managedUserVM.getLinks().stream().map(linkDTO -> {
                 Link link = new Link();
+                link.setTitle(linkDTO.getTitle());
                 link.setUrl(linkDTO.getUrl());
                 return link;
             }).collect(Collectors.toList()));

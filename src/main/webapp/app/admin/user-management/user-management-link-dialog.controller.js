@@ -36,6 +36,7 @@
                 return link.selected;
             }).map(function (link) {
                 return {
+                    title: link.title,
                     url: 'https://www.youtube.com/watch?v=' + link.videoId
                 }
             });
