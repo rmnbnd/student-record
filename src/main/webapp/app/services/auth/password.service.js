@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .factory('Password', Password);
 
     Password.$inject = ['$resource'];

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .factory('LoginService', LoginService);
 
     LoginService.$inject = ['$uibModal'];

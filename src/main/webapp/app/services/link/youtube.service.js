@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .factory('YoutubeAuthorize', YoutubeAuthorize)
         .factory('Youtube', Youtube);
 

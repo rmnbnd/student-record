@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .factory('Link', Link);
 
     Link.$inject = ['$resource'];

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .controller('SettingsController', SettingsController);
 
     SettingsController.$inject = ['Principal', 'User'];

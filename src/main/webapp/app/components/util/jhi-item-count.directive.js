@@ -15,6 +15,6 @@
     };
 
     angular
-        .module('applicationApp')
+        .module('app')
         .component('jhiItemCount', jhiItemCount);
 })();

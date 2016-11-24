@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .factory('Principal', Principal);
 
     Principal.$inject = ['$q', 'Account'];

@@ -11,7 +11,7 @@
     };
 
     angular
-        .module('applicationApp')
+        .module('app')
         .component('jhiAlertError', jhiAlertError);
 
     jhiAlertErrorController.$inject = ['$scope', 'AlertService', '$rootScope'];
@@ -36,7 +36,7 @@
             );
         }
 
-        var cleanHttpErrorListener = $rootScope.$on('applicationApp.httpError', function (event, httpResponse) {
+        var cleanHttpErrorListener = $rootScope.$on('app.httpError', function (event, httpResponse) {
             var i;
             event.stopPropagation();
             switch (httpResponse.status) {
@@ -46,8 +46,8 @@
                 break;
 
             case 400:
-                var errorHeader = httpResponse.headers('X-applicationApp-error');
-                var entityKey = httpResponse.headers('X-applicationApp-params');
+                var errorHeader = httpResponse.headers('X-app-error');
+                var entityKey = httpResponse.headers('X-app-params');
                 if (errorHeader) {
                     var entityName = entityKey;
                     addErrorAlert(errorHeader, errorHeader, {entityName: entityName});

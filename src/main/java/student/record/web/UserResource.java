@@ -59,8 +59,8 @@ public class UserResource {
         }
         studentService.updateStudent(student);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-applicationApp-alert", "A user is updated.");
-        headers.add("X-applicationApp-params", managedUserVM.getLogin());
+        headers.add("X-app-alert", "A user is updated.");
+        headers.add("X-app-params", managedUserVM.getLogin());
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(new ManagedUserVM(studentService.findByLogin(managedUserVM.getLogin().toLowerCase())));

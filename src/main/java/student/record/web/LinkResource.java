@@ -21,8 +21,8 @@ public class LinkResource {
         studentService.removeLink(login, Long.valueOf(linkId));
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-applicationApp-alert", "A link is deleted");
-        headers.add("X-applicationApp-params", linkId);
+        headers.add("X-app-alert", "A link is deleted");
+        headers.add("X-app-params", linkId);
         return ResponseEntity.ok().headers(headers).build();
     }
 

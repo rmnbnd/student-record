@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('applicationApp')
+        .module('app')
         .controller('UserManagementLinkDialogController', UserManagementLinkDialogController);
 
     UserManagementLinkDialogController.$inject = ['$stateParams', '$state', 'User', 'Youtube'];
