@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('SettingsController', SettingsController);
+        .controller('LinksController', LinksController);
 
-    SettingsController.$inject = ['Principal', 'User'];
+    LinksController.$inject = ['Principal', 'User'];
 
-    function SettingsController(Principal, User) {
+    function LinksController(Principal, User) {
         var vm = this;
 
         Principal.identity().then(function (account) {
